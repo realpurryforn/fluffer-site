@@ -611,6 +611,20 @@ html {
   border-bottom: solid 1px #323232;
   padding-bottom: 4px;
 }
+/* downloadimage onclick */
+
+#on-click-download:active #downloadimage {
+  animation: downloadimage-click 0.1s forwards;
+}
+
+@keyframes downloadimage-click {
+  0% {
+    max-width: 75%;
+  }
+  100% {
+    max-width: 70%;
+  }
+}
 
 .header {
   width: 100%;
@@ -628,6 +642,18 @@ html {
 .footer {
   background-color: #212121;
 
+}
+
+.footer-logo {
+  display: block;
+  width: 100%;
+  max-width: 72px;
+  margin: 0 left;
+  margin-bottom: 8px;
+  float: left;
+  /* align text after image */
+  margin-right: 16px;
+  border: none;
 }
 
 .download-modal {
