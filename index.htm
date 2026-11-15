@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang=en>
+	<head>
+	<title>Fluffer</title>
+	<link rel="icon" href="./images/fluffer.ico" type="image/x-icon">
+	<link rel=stylesheet type=text/css href="./styles/blacksteam/blacksteam.css">
+    </head>
+
+	<header>
+		<div class=header>
+			<img src="./images/banner.png" mode="lighten" alt="banner">
+			<!--<h1>Fluffer</h1>
+			<p>Fork of Valve Hammer Editor</p>-->
+		</div>
+	</header>
+	<main>
+		<nav>
+			<li><a>Home</a></li>
+			<li><a href="#build-101">Downloads</a></li>
+			
+		</nav>
+
+		<div class=window name="FLUFFER">
+			<!--<div class="titlebar">Green Steam Theme</div>-->
+			<h1>Привет</h1>
+			<p>На этой странице ты можешь скачать Fluffer,</p>
+			<p>Ну или почитать немножко информации :)</p>
+		</div>
+
+		<div class="headless window" name="FLUFFER">
+			<h1>О проекте</h1>
+			<p>Fluffer - это форк Valve Hammer Editor, созданный для предоставления возможности редактировать или строить карты совместно с друзьями!</p>
+			
+			<hr>
+			<h1>Как использовать</h1>
+			<p>Для использования Fluffer нужно выполнить несколько шагов.</p>
+            <p>1. Скачать Fluffer с вкладки <a href="./downloads.htm">Downloads</a></p>
+            <p>2. Обязательно убедиться, что у вас установлен Source SDK 2013 Multiplayer</p>
+            <code>(в будущем планируется билд под Garry's Mod)</code>
+			<p>3. Переместить файлы в папку с SDK/bin</p>
+            <p>4. Запустить Fluffer</p>
+            <p>5. Сверху будет кнопка "Multiplayer", выдвиньте её и следуйте следующим шагам:</p>
+            <hr>
+            <div class="window-row">
+                <div class="window headless">
+                <h2>Создание сессии (Хост)</h2>
+                <p>1. Нажмите на кнопку "Create Session"</p>
+                <p>2. Введите название сессии</p>
+                <p>3. Введите свой ник в сессии</p>
+                <p>4. Введите пароль (необязательно)</p>
+                <p>5. Нажмите "Create"</p>
+                </div>
+                <div class="window headless">
+                <h2>Подключение к сессии (Клиент)</h2>
+                <p>1. Нажмите на кнопку "Join Session"</p>
+                <p>2. Введите <a href="#host-ip">айпи</a> хоста</p>
+                <p>3. Введите свой ник в сессии</p>
+                <p>4. Нажмите "Join"</p>
+                <p>&nbsp;</p>
+                </div>
+            </div>
+            <h1>Важно: </h1>
+            <p>• Убедитесь, что у вас установлен Source SDK 2013 Multiplayer.</p>
+            <p id="host-ip">• У хоста должен быть открыт порт 27050. (Используйте Radmin VPN или Porthole)</p>
+                        <p>• Этот форк еще сырой, там много разных багов, крашей и т.п</p>
+                        <p>При обнаружении багов лучше писать в дискорд-сервер</p>
+        </div>
+
+        <div class=window name="DOWNLOADS" id="build-101">
+			<h2>Build 101</h2>
+            
+			<a href="#download"><img src="./images/sourcesdk2013mp.png" id="downloadimage" alt="Source SDK 2013 Multiplayer"></a>
+			<br>Source SDK 2013 Multiplayer is required to run Fluffer. You can download it from Steam.
+
+		</div>
+
+		<div class=window no-resize name="UPDATES">
+			<p>&nbsp;</p>
+			<h2>Build 101</h2>
+			<p>• Initial open-beta-test of Fluffer.</p>
+			<p>&nbsp;</p>
+		</div>
+		
+
+	</main>
+
+	<footer>
+		<p>© 2026 Fluffer. Not affiliated with Valve Corporation. Hammer and Source are trademarks of Valve Corporation.</p>
+	</footer>
+
+	<div class="download-modal" id="download-modal" aria-hidden="true">
+		<div class="window download-dialog" role="dialog" aria-modal="true" aria-labelledby="download-title" tabindex="-1">
+			<h1 id="download-title">Важно:</h1>
+			<p>• Убедитесь, что у вас установлен Source SDK 2013 Multiplayer.</p>
+			<p>• У хоста должен быть открыт порт 27050. (Используйте Radmin VPN или Porthole)</p>
+			<p>• Этот форк еще сырой, там много разных багов, крашей и т.п</p>
+			<p>При обнаружении багов лучше писать в дискорд-сервер</p>
+
+			<label class="download-acknowledgement">
+				<input type="checkbox" id="download-acknowledgement">
+				Да, я понял.
+			</label>
+			<div class="download-actions">
+				<button type="button" id="download-confirm" disabled>Скачать</button>
+				<button type="button" id="download-cancel">Закрыть</button>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		(function () {
+			var modal = document.getElementById("download-modal");
+			var dialog = modal.querySelector(".download-dialog");
+			var acknowledgement = document.getElementById("download-acknowledgement");
+			var confirmButton = document.getElementById("download-confirm");
+			var cancelButton = document.getElementById("download-cancel");
+			var opener;
+
+			function closeModal() {
+				modal.classList.remove("is-open");
+				modal.setAttribute("aria-hidden", "true");
+				if (opener) {
+					opener.focus();
+				}
+			}
+
+			document.querySelectorAll('a[href="#download"]').forEach(function (link) {
+				link.addEventListener("click", function (event) {
+					event.preventDefault();
+					opener = link;
+					acknowledgement.checked = false;
+					confirmButton.disabled = true;
+					modal.classList.add("is-open");
+					modal.setAttribute("aria-hidden", "false");
+					acknowledgement.focus();
+				});
+			});
+
+			acknowledgement.addEventListener("change", function () {
+				confirmButton.disabled = !acknowledgement.checked;
+			});
+
+			confirmButton.addEventListener("click", function () {
+				window.location.href = "https://github.com/realpurryforn/fluffer-site/releases";
+			});
+
+			cancelButton.addEventListener("click", closeModal);
+			modal.addEventListener("click", function (event) {
+				if (event.target === modal) {
+					closeModal();
+				}
+			});
+
+			document.addEventListener("keydown", function (event) {
+				if (!modal.classList.contains("is-open")) {
+					return;
+				}
+
+				if (event.key === "Escape") {
+					closeModal();
+				} else if (event.key === "Tab") {
+					var focusable = Array.prototype.slice.call(
+						dialog.querySelectorAll('button:not(:disabled), input:not(:disabled)')
+					);
+					var first = focusable[0];
+					var last = focusable[focusable.length - 1];
+
+					if (event.shiftKey && document.activeElement === first) {
+						event.preventDefault();
+						last.focus();
+					} else if (!event.shiftKey && document.activeElement === last) {
+						event.preventDefault();
+						first.focus();
+					}
+				}
+			});
+		}());
+	</script>
+</html>
